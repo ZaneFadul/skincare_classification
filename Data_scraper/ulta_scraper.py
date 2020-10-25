@@ -94,7 +94,11 @@ def scrape(linkArray):
     data = {"Product": product_name, 'Brand': brand, 'Rating': ratings, "Ingredients": ingredients, 'Price': price, "Recommendation_Percentage": recommendations}
     return data
 
-
+#def preclean(dataframe):
+    ### needs to be complete
+    ## remove $ from price column
+    ## remove ingredients from ingredients column 
+    #for i in range(len(dataframe)):
 
 def save(data, fileName):
     df = pd.DataFrame(data)
@@ -112,6 +116,57 @@ if __name__ == "__main__":
     ingredients = []
     ratings = []
     recommendations = []
-    oily_data = scrape(listOfOilyPages)
-    save(oily_data, 'oily')
+    oily_links = get_links(listOfOilyPages)
+    oily_data = scrape(oily_links)
+    save(oily_data, 'Oily')
     
+
+    ## Normal Collection 
+    listOfNormPages = ["https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3l&No=0&Nrpp=96","https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3l&No=96&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3l&No=192&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3l&No=288&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3l&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=0&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=96&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=192&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=288&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3l&No=480&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=0&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=96&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=192&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=288&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=384&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=480&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3l&No=576&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3l&No=0&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3l&No=96&Nrpp=96", "https://www.ulta.com/skin-care-suncare?N=27feZ1z13p3l", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3l&No=0&Nrpp=96", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3l&No=96&Nrpp=96"]
+    product_name = []
+    brand =[]
+    price = []
+    ingredients = []
+    ratings = []
+    recommendations = []
+    norm_links = get_links(listOfNormPages)
+    norm_data = scrape(norm_links)
+    save(norm_data, 'Normal')
+
+    ## Dry Collection 
+    listOfDryPages = ["https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3o&No=0&Nrpp=96","https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3o&No=96&Nrpp=96","https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3o&No=192&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3o&No=288&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3o&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=0&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=96&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=192&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=288&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3o&No=480&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=0&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=96&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=192&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=288&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=384&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3o&No=480&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3o&No=0&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3o&No=96&Nrpp=96", "https://www.ulta.com/skin-care-suncare?N=27feZ1z13p3o", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3o&No=0&Nrpp=96", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3o&No=96&Nrpp=96"]
+    product_name = []
+    brand =[]
+    price = []
+    ingredients = []
+    ratings = []
+    recommendations = []
+    dry_links = get_links(listOfDryPages)
+    dry_data = scrape(dry_links)
+    save(dry_data, 'Dry')
+
+    ## Combination Collection 
+    listOfComboPages = ["https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3k&No=0&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3k&No=96&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3k&No=192&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3k&No=288&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3k&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=0&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=96&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=192&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=288&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=288&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=384&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3k&No=480&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=0&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=96&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=192&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=288&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=384&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=480&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3k&No=576&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3k&No=0&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3k&No=96&Nrpp=96", "https://www.ulta.com/skin-care-suncare?N=27feZ1z13p3k", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3k&No=96&Nrpp=96", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3k&No=0&Nrpp=96"]
+    product_name = []
+    brand =[]
+    price = []
+    ingredients = []
+    ratings = []
+    recommendations = []
+    combo_links = get_links(listOfComboPages)
+    combo_data = scrape(combo_links)
+    save(combo_data, 'Combination')
+
+    ## Sensitive Collection 
+    listOfSenPages = ["https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3m&No=0&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3m&No=96&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3m&No=192&Nrpp=96", "https://www.ulta.com/skin-care-cleansers?N=2794Z1z13p3m&No=288&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3m&No=0&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3m&No=96&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3m&No=192&Nrpp=96", "https://www.ulta.com/skin-care-moisturizers?N=2796Z1z13p3m&No=288&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3m&No=0&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3m&No=96&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3m&No=192&Nrpp=96", "https://www.ulta.com/skin-care-treatment-serums?N=27csZ1z13p3m&No=288&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3m&No=0&Nrpp=96", "https://www.ulta.com/skin-care-eye-treatments?N=270kZ1z13p3m&No=96&Nrpp=96", "https://www.ulta.com/skin-care-suncare?N=27feZ1z13p3m","https://www.ulta.com/korean-skin-care?N=27igZ1z13p3m&No=0&Nrpp=96", "https://www.ulta.com/korean-skin-care?N=27igZ1z13p3m&No=96&Nrpp=96"]
+    product_name = []
+    brand =[]
+    price = []
+    ingredients = []
+    ratings = []
+    recommendations = []
+    sen_links = get_links(listOfSenPages)
+    sen_data = scrape(sen_links)
+    save(sen_data, 'Sensitive')
+
+
