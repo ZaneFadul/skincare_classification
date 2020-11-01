@@ -63,7 +63,6 @@ class SkinTypeDatabase:
             skintypes = [(i,) for i in skintypes]
             skintypes = str(tuple(skintypes)).replace('\'','\"').replace(',)',')')[1:-1]
             self.c.execute(f'INSERT INTO skintypes (skintype) VALUES {skintypes}')
-            print(self.c.execute('SELECT * FROM skintypes').fetchall())
             self.conn.commit()
         except:
             pass
@@ -73,25 +72,31 @@ class SkinTypeDatabase:
         self.conn.close()
         
 class SkinTypeScraper:
-  def __init__(self, skintype):
-    self.skintype = skintype
-    self.names = []
-    self.brands = []
-    self.prices = []
-    self.ingredients = []
-    self.ratings = []
-    self.recommendations = []
-    self.links = []  #getLinks
+  
+    def __init__(self, skintype):
+        self.skintype = skintype
+        self.names = []
+        self.brands = []
+        self.prices = []
+        self.ingredients = []
+        self.ratings = []
+        self.recommendations = []
+        self.links = []  #getLinks
     
-    def get_links(self, pages, domain='https://ulta.com'):
-        for page in self.pages:
-            prod_pg = requests.get(page)
-            soup = BeautifulSoup(prod_pg.text, 'html.parser')
-            block = soup.find_al('div', class_='prod-title-desc')
-            for link in block:
-                l = link.find('p').a.get('href')
-                self.links.append(f'{domain}{l}')
-                
+    def get_links(self, domain='https://ulta.com'):
+        for page in self.links:
+            try:
+                prod_pg = requests.get(page)
+                soup = BeautifulSoup(prod_pg.text, 'html.parser')
+                block = soup.find_all('div', class_='prod-title-desc')
+                for link in block:
+                    l = link.find('p').a.get('href')
+                    if l not in self.links:
+                        self.links.append(f'{domain}{l}')
+            except:
+                print('lil buggie wuggie in get_links')
+                continue
+            
     def scrape(self):
         for link in self.links:
             try:
@@ -119,10 +124,10 @@ class SkinTypeScraper:
                     self.ingredients.append(i)
                 except:
                     self.ingredients.append('')
-                    
+                time.sleep(0.2)
             except:
                 print('Connection Refused... Resume in 3 seconds')
-                time.sleep(3)
+                time.sleep(5)
                 continue
             
             return
@@ -138,6 +143,16 @@ if __name__ == '__main__':
 
     skintypes = [ SkinTypeScraper(i) for i in skintype_names ]
     db = SkinTypeDatabase('database', skintype_names)
-        
+    
+    with open('normal_links.txt') as file:
+        skintypes[0].links = file.readlines()
+        file.close()
+    
+    ##skintypes[0].get_links()
+    print(skintypes[0].links)
+    skintypes[0].scrape()
+    
+    print(skintypes[0].names)
+    
     #Commit and Close
     db.close()  
